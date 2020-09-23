@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  master:
+    image: rahulrdate/locust-pgeocode 
+    ports:
+     - "8089:8089"
+    volumes:
+      - ./:/opt
+    command: -f locustfile.py --master -H http://master:8089
+  
+  worker:
+    image: rahulrdate/locust-pgeocode
+    volumes:
+      - ./:/opt
+    command: -f locustfile.py --worker --master-host master
